@@ -13,7 +13,7 @@ target_data = 2
 % 1:Sc sub1~39
 % 2:St sub1~22
 % 3:DREAM sub1~20
-% 4:MASS_SS2 sub1~47
+% 4:MASS_SS1 sub1~47
 transfer_learning = 1
 % 0:CCA
 % 1:subspace align
@@ -25,10 +25,11 @@ boundary = 0
 % 0: the edge artifacts may contaminate the part of the feature we are interested in.
 time_freq_method = 'scattering' ;
 % RCWT or scattering
-result_file = 'C:\Users\l1610\OneDrive\桌面\ming_hsiou\sleep_transfer_learning-master\result\Acc_DREAM_MASS_SS1_align.txt';
-plot_name = 'DREAM - MASS SS1 SA normalized confusion matrix (SVM)';
-%% Choose the source data
 
+plot_name = 'DREAM - MASS SS1 SA normalized confusion matrix (SVM)';
+
+%% Choose the source data
+2D_plot = 0
 if (source_data == 1)
     %% Import SC
     
@@ -409,6 +410,7 @@ toc
 %fclose(fid);
 
 %% 2D plot
+if (2D_plot == 1)
 source_sub = predictors(cvp.testStore{2},:);
 source_stage = response(cvp.testStore{2});
 s_awake_idx = (source_stage == 1);
@@ -457,6 +459,7 @@ t_n3_idx = (target_stage == 5);
 %hold on
 
 
+
 plot((source_sub(:,1)),(source_sub(:,2)),'rsquare')
 hold on
 plot((target_sub(:,1)),(target_sub(:,2)),'bsquare')
@@ -502,3 +505,4 @@ legend({'source data','target data'},'FontSize',12,'Interpreter','latex','Locati
 title(['N3, ' dim_reduction_method])
 
 sgtitle('Data distribution in 2D')
+end
